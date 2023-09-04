@@ -1,9 +1,17 @@
-name: Android CI
+name: BUILD CI
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - "**.md"
+      - ".github/**"
+      - ".idea/**"
+      - "!.github/workflows/**"
 
 jobs:
   build:
+    name: Build CI (Push)
     runs-on: ubuntu-latest
 
     steps:
@@ -13,15 +21,20 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'temurin'
+          distribution: 'adopt'
 
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-        with:
-          arguments: build
+        run:
+          ls -alh
+          echo "sdk.dir=${ANDROID_HOME}" > local.properties
+          ./gradlew assembleDebug
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.SIGN_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.SIGN_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.SIGN_KEY_PASSWORD }}
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v2

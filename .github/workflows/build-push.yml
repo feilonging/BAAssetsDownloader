@@ -29,7 +29,7 @@ jobs:
       - name: Build with Gradle
         run:
           echo "sdk.dir=${ANDROID_HOME}" > local.properties
-          chmod +x gradlew &&./gradlew assembleDebug
+          ./gradlew assembleDebug
         env:
           KEYSTORE_PATH: "../keystore.jks"
           KEYSTORE_PASSWORD: ${{ secrets.SIGN_KEYSTORE_PASSWORD }}

@@ -28,9 +28,9 @@ jobs:
 
       - name: Build with Gradle
         run:
-          ls -alh
-          echo "sdk.dir=${ANDROID_HOME}" > local.properties
-          ./gradlew assembleDebug
+          ls -alh;
+          echo "sdk.dir=${ANDROID_HOME}" > local.properties;
+          ./gradlew assembleDebug;
         env:
           KEYSTORE_PASSWORD: ${{ secrets.SIGN_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.SIGN_ALIAS }}

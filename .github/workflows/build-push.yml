@@ -32,7 +32,7 @@ jobs:
           echo ${{ secrets.SIGN_KEYSTORE_BASE64 }} | base64 -d > keystore.jks
           ls -alh
           echo "sdk.dir=${ANDROID_HOME}" > local.properties
-          chmod +x ./gradlew && ./gradlew assembleDebug
+          chmod +x ./gradlew && ./gradlew assembleRelease
         env:
           KEYSTORE_PATH: "../keystore.jks"
           KEYSTORE_PASSWORD: ${{ secrets.SIGN_KEYSTORE_PASSWORD }}

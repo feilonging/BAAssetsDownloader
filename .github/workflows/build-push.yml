@@ -35,9 +35,9 @@ jobs:
           chmod +x ./gradlew && ./gradlew assembleRelease
         env:
           KEYSTORE_PATH: "../keystore.jks"
-          KEYSTORE_PASSWORD: ${{ secrets.SIGN_KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.SIGN_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.SIGN_KEY_PASSWORD }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v2
